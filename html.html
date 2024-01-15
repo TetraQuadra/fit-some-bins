@@ -4,34 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
-      body {
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-
-      #container {
-        position: relative;
-        margin: 20px;
-        border: 1px solid #000;
-        width: 400px;
-        height: 400px;
-      }
-
       .block {
         position: absolute;
+        box-sizing: border-box;
+        border: 1px rgba(255, 255, 255, 0.267) solid;
         display: flex;
-        justify-content: center;
         align-items: center;
-        border: 1px solid #000;
+        justify-content: center;
+        color: #ffffff;
+        font-size: 8px;
+      }
+      #info {
+        position: absolute;
+        top: 0;
+        left: 0;
+        font-size: 6px;
+        background-color: rgba(214, 214, 214, 0.527);
+        z-index: 10;
       }
     </style>
   </head>
   <body>
+    <div id="info"></div>
     <div id="container"></div>
-
-    <script type="module" src="index.mjs"></script>
+    <script type="module" src="index.js"></script>
   </body>
 </html>
