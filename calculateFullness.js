@@ -36,6 +36,7 @@ export function calculateFullness(blocks, container) {
         }),
       });
     }
+
     newLine.forEach((segment) => {
       if (segment.enclosed === true) {
         totalEnclosedArea += segment.x2 - segment.x1;
@@ -44,6 +45,7 @@ export function calculateFullness(blocks, container) {
 
     currentLine = newLine;
   }
+
   return 1 - totalEnclosedArea / (totalEnclosedArea + totalFilledArea);
 
   function checkSegmentEnclosement(segment) {

@@ -1,22 +1,29 @@
-import { PackBlocks } from "./packing.js";
+import { packBlocks } from "./packing.js";
 import { calculateFullness } from "./calculateFullness.js";
+import { checkInput, debounce, generateBlocks } from "./helpers.js";
 import {
   drawBlocksToContainer,
   clearGUI,
   showFullness,
   showUnfittedBlocks,
 } from "./gui.js";
-import { debounce, generateBlocks } from "./helpers.js";
+import input from "./blocks.json" assert { type: "json" };
 
-const container = { width: window.innerWidth, height: window.innerHeight };
-const blocks = generateBlocks(25, 10, 100);
+// const blocks = generateBlocks(25, 10, 100);
+const blocks = input;
 
 function startPacking(blocks, container) {
-  const blockCoordinates = PackBlocks(blocks, container);
+  const isInputCorrect = checkInput(blocks);
+  if (!isInputCorrect) {
+    return;
+  }
+
+  const blockCoordinates = packBlocks(blocks, container);
   drawBlocksToContainer(blockCoordinates.placedBlocks);
 
   const fullness = calculateFullness(blockCoordinates.placedBlocks, container);
   showFullness(fullness);
+
   if (blockCoordinates.unfitBlocks.length > 0) {
     showUnfittedBlocks(blockCoordinates.unfitBlocks);
   }
@@ -24,11 +31,12 @@ function startPacking(blocks, container) {
 
 const debouncedStartPacking = debounce(startPacking, 50);
 
-startPacking(blocks, container);
-
-window.addEventListener("resize", () => {
+const refreshLoop = () => {
   clearGUI();
-  container.width = window.innerWidth;
-  container.height = window.innerHeight;
+  const container = { width: window.innerWidth, height: window.innerHeight };
   debouncedStartPacking(blocks, container);
-});
+};
+
+refreshLoop();
+
+window.addEventListener("resize", refreshLoop);

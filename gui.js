@@ -1,8 +1,10 @@
 export function drawBlocksToContainer(coordinates) {
   const colorMap = {};
+
   if (!coordinates) {
-    return alert("no coordinates given");
+    alert("no coordinates given to draw");
   }
+
   const container = document.getElementById("container");
 
   coordinates.forEach((coord) => {
@@ -46,11 +48,14 @@ function getRandomColor() {
 
 export function showFullness(fullness) {
   const infoBlock = document.createElement("div");
+
   if (fullness < 0 || fullness > 1) {
     console.log("Invalid fullness value");
   }
+
   const percentage = Math.round(fullness * 100);
   const htmlString = `Fullness: ${percentage}%`;
+
   infoBlock.innerHTML = htmlString;
   document.getElementById("info").appendChild(infoBlock);
 }
@@ -70,8 +75,9 @@ export function showUnfittedBlocks(unfittedBlocks) {
 }
 
 export function clearGUI() {
+  const emptyHtml = "";
   const container = document.getElementById("container");
   const info = document.getElementById("info");
-  container.innerHTML = ``;
-  info.innerHTML = ``;
+  container.innerHTML = emptyHtml;
+  info.innerHTML = emptyHtml;
 }

@@ -1,10 +1,11 @@
-export function PackBlocks(blocks, container) {
+export function packBlocks(blocks, container) {
   const sortedBlocks = blocks
     .map((block, index) => ({
       ...block,
       initialOrder: index,
     }))
     .sort((a, b) => b.width * b.height - a.width * a.height);
+
   const placedBlocks = [];
   const unfitBlocks = [];
 
@@ -39,6 +40,7 @@ export function PackBlocks(blocks, container) {
         availableCoordinatesToPlace
       );
     }
+
     return mostOptimalPosition;
   }
 
@@ -54,6 +56,7 @@ export function PackBlocks(blocks, container) {
       ) {
         const addedHeight =
           availableCoordinatesToPlace[i].y + blockToPlace.height;
+
         if (addedHeight < mostOptimalPosition.addedHeight) {
           const newCoordinates = {
             x1: availableCoordinatesToPlace[i].x,
@@ -62,12 +65,14 @@ export function PackBlocks(blocks, container) {
             y2: availableCoordinatesToPlace[i].y + blockToPlace.height,
             addedHeight: addedHeight,
           };
+
           if (!isOverlapping(newCoordinates)) {
             mostOptimalPosition = newCoordinates;
           }
         }
       }
     }
+
     return mostOptimalPosition;
   }
 
@@ -123,6 +128,7 @@ export function PackBlocks(blocks, container) {
       }
     );
   }
+
   return {
     placedBlocks: placedBlocks.map(
       ({ top, left, right, bottom, initialOrder }) => ({
